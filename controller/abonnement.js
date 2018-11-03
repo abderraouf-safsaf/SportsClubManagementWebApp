@@ -1,5 +1,5 @@
 
-var mongoose = require('mongoose'),
+const mongoose = require('mongoose'),
 Abonnement = mongoose.model('abonnement');
 
 exports.list = function(req, res){
@@ -14,7 +14,7 @@ Abonnement.find().populate('plan').populate('adherent').exec((err, a) => {
 }
 
 exports.read = function(req, res){
-var abonnement = req.params.id;
+let abonnement = req.params.id;
 Abonnement.findById(abonnement).populate('adherent').populate('plan').exec((err, a) =>{
         if (err) return res.status(500).send(err);
         if (!a) {
@@ -27,7 +27,7 @@ Abonnement.findById(abonnement).populate('adherent').populate('plan').exec((err,
 }
 
 exports.create = (req, res) =>	{
-var abonnement = req.body.abonnement;
+let abonnement = req.body.abonnement;
 Abonnement.create(abonnement, (err, a) =>	{
     if (err) return res.status(500).send(err);
     if (!a) {
@@ -40,8 +40,8 @@ Abonnement.create(abonnement, (err, a) =>	{
 }
 
 exports.update = (req, res) =>	{
-var id = req.params.id;
-var abonnement = req.body.abonnement;
+let id = req.params.id;
+let abonnement = req.body.abonnement;
 Abonnement.findByIdAndUpdate(id, abonnement, (err, abonnement) =>	{
     if (err) return res.status(500).send(err);
     if (!abonnement) {
@@ -54,7 +54,7 @@ Abonnement.findByIdAndUpdate(id, abonnement, (err, abonnement) =>	{
 }
 
 exports.delete = (req, res) =>	{
-var id = req.params.id;
+let id = req.params.id;
 Abonnement.findByIdAndRemove(id, (err, a) =>	{
     if (err) return res.status(500).send(err);
     if (!a) {
@@ -64,4 +64,23 @@ Abonnement.findByIdAndRemove(id, (err, a) =>	{
     console.log('Supression abonnement: ' + a.date_debut);
     res.send(a);
 });
+}
+
+exports.listBetweenDates = (req, res) =>    {
+    let dateDebutStr = req.params.debut,
+        dateFinStr = req.params.fin;
+    let dateDebut = new Date(dateDebutStr),
+        dateFin = new Date(dateFinStr);
+
+    Abonnement.find({"createdAt": {
+        "$gte": dateDebut,
+        "$lt": dateFin
+    }}).exec((err, a) =>    {
+        if (err) return res.status(500).send(err);
+        if (!a) {
+            err = new Error("Incomes: abonnement n'existe pas");
+            return res.status(404).send(err);
+        }
+        res.send(a);
+    });
 }

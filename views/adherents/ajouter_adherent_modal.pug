@@ -1,0 +1,73 @@
+#ajouter_adherent_modal.modal.fade.text-left(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+		.modal-dialog.modal-lg(role='document')
+			.modal-content
+				.modal-header
+					h5#exampleModalLabel.modal-title Ajouter Adherent
+					button.close(type='button', data-dismiss='modal', aria-label='Close')
+						span(aria-hidden='true') ×
+				.modal-body
+					form#ajouter_adherent_form
+						div
+							.container
+								.row.p-0
+									.col-md-12.p-0
+										.card
+											.card-header.bg-light
+												| Information adherent
+												br
+											.card-body
+												.form-row
+													.form-group.col-md-6
+														label Nom
+														input#new-nom.form-control(type='text', placeholder='Nom', required='required')
+													.form-group.col-md-6
+														label Prénom
+														input#new-prenom.form-control(type='text', placeholder='Prénom', required='required')
+													.form-group.col-md-6
+														label Date de naissance
+														input#new-date-naissance.form-control(type='date', placeholder='Email Address', required='required')
+													.form-group.col-md-6
+														label Sexe
+														br
+														.d-flex.flex-row.justify-content-left.align-items-center.m-2
+															.form-check.form-check-inline
+																label.form-check-label
+																	input#inlineRadio1.form-check-input(type='radio', value='male', name='sex')
+																	|  Homme
+															.form-check.form-check-inline
+																label.form-check-label
+																	input#inlineRadio1.form-check-input(type='radio', value='female', name='sex')
+																	|  Femme
+													.form-group.col-md-6
+														label Téléphone
+														input#new-mobile.form-control(type='number', placeholder='Numéro de téléphone')
+													.form-group.col-md-6
+														label Email
+														input#new-email.form-control(type='email', placeholder='Adresse email')
+													.form-group.col-md-12(style='')
+														label Adresse
+														input#new-adresse.form-control(type='text', placeholder='Adresse')
+						div
+							.container
+								.row
+									.col-md-12.p-0
+										.card
+											.card-header.bg-light
+												| Piéce d'identité
+												br
+											.card-body
+												.form-row
+													.form-group.col-md-6
+														label Type piéce
+														select#new-piece-identite.form-control
+															option(value='piece_identite') Carte nationale
+															option(value='permis') Permis de conduire
+															option(value='passeport') Passeport
+													.form-group.col-md-6
+														label Numéro
+														input#new-num-piece.form-control(type='number', placeholder="Numéro de la piéce d'identité", required='required')
+													.form-group.col-md-12
+														label Délivré le
+														input#new-date-piece.form-control(type='date', placeholder='Date de délivrance', required='required')
+						.form-group.mx-2.text-right
+							input#newAdherentBtn.btn.btn-primary.btn-lg.form-control-lg.w-25(type='submit', value='Ajouter')

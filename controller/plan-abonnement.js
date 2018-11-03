@@ -1,6 +1,6 @@
 
 var mongoose = require('mongoose'),
-PlanAbonnement = mongoose.model('planabonnements');
+PlanAbonnement = mongoose.model('planabonnement');
 
 
 
@@ -25,6 +25,24 @@ PlanAbonnement.findById(planAbonnementId, (err, p) =>{
     }
     res.send(p);
 });
+}
+exports.listBetweenDates = (req, res) =>    {
+    let dateDebutStr = req.params.debut,
+        dateFinStr = req.params.fin;
+    let dateDebut = new Date(dateDebutStr),
+        dateFin = new Date(dateFinStr);
+
+    PlanAbonnement.find({"createdAt": {
+        "$gte": dateDebut,
+        "$lt": dateFin
+    }}).exec((err, a) =>    {
+        if (err) return res.status(500).send(err);
+        if (!a) {
+            err = new Error("Incomes: abonnement n'existe pas");
+            return res.status(404).send(err);
+        }
+        res.send(a);
+    });
 }
 
 exports.create = (req, res) =>	{

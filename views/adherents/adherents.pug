@@ -18,97 +18,37 @@ append content
               br
       .row
         .col-lg-12
+
           .card
             .card-header
               h4 Striped Table
             .card-body
-              .table-responsive
-                table.table.table-striped
+                table#adherentsDatatables.display(style='width:100%')
                   thead
                     tr
-                      th #
-                      th First Name
-                      th Last Name
-                      th Username
+                      th ID
+                      th Photo
+                      th Nom
+                      th Prénom
+                      th Age (Ans)
                   tbody
+                    each a in adherents
+                      tr
+                        td= a._id
+                        td 
+                          img.img-fluid.rounded-circle.mCS_img_loaded.adherent_picture(src='/img/avatar-7.jpg', alt='adherent')
+                        td= a.nom
+                        td= a.prenom
+                        td= 18
+                  tfoot
                     tr
-                      th(scope='row') 1
-                      td Mark
-                      td Otto
-                      td @mdo
-                    tr
-                      th(scope='row') 2
-                      td Jacob
-                      td Thornton
-                      td @fat
-                    tr
-                      th(scope='row') 3
-                      td Larry
-                      td the Bird
-                      td @twitter 
-  #ajouter_adherent_modal.modal.fade.text-left(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
-    .modal-dialog.modal-lg(role='document')
-      .modal-content
-        .modal-header
-          h5#exampleModalLabel.modal-title Ajouter Adherent
-          button.close(type='button', data-dismiss='modal', aria-label='Close')
-            span(aria-hidden='true') ×
-        .modal-body
-          form
-            div
-              .container
-                .row.p-0
-                  .col-md-12.p-0
-                    .card
-                      .card-header.bg-light
-                        | Information adherent
-                        br
-                      .card-body
-                        .form-row
-                          .form-group.col-md-6
-                            label Nom
-                            input.form-control(type='text', placeholder='Nom', required='required')
-                          .form-group.col-md-6
-                            label Prénom
-                            input.form-control(type='text', placeholder='Prénom', required='required')
-                          .form-group.col-md-6
-                            label Date de naissance
-                            input.form-control(type='date', placeholder='Email Address', required='required')
-                          .form-group.col-md-6
-                            label Sexe
-                            input.form-control(type='text', required='required', placeholder='Sexe')
-                          .form-group.col-md-6
-                            label(contenteditable='true') Téléphone
-                            input.form-control(type='number', placeholder='Numéro de téléphone')
-                          .form-group.col-md-6
-                            label Email
-                            input.form-control(type='email', placeholder='Adresse email')
-                          .form-group.col-md-12(style='')
-                            label Adresse
-                            input.form-control(type='text', placeholder='Adresse')
-            div
-              .container
-                .row
-                  .col-md-12.p-0
-                    .card
-                      .card-header.bg-light
-                        | Piéce d'identité
-                        br
-                      .card-body
-                        .form-row
-                          .form-group.col-md-6
-                            label Type piéce
-                            input.form-control(type='email', placeholder='Email Address')
-                          .form-group.col-md-6
-                            label Numéro
-                            input.form-control(type='number', placeholder="Numéro de la piéce d'identité", required='required')
-                          .form-group.col-md-12
-                            label Délivré le
-                            input.form-control(type='date', placeholder='Date de délivrance', required='required')
-            .form-group.mx-2
-              input.btn.btn-primary.btn-lg.form-control-lg(type='submit', value='Ajouter')
-        .modal-footer
-          button.btn.btn-secondary(type='button', data-dismiss='modal') Annuler
+                      th ID
+                      th Photo
+                      th Nom
+                      th Prénom
+                      th Age
 
+  include ./ajouter_adherent_modal
+script.
 append scripts
-  include ./adherents.js
+  script(src="/js/adherents/adherents.js")

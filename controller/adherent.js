@@ -11,7 +11,7 @@ exports.list = function(req, res){
 			err = new Error('List: adherents non trouvees');
 			return res.status(404).send(err);
 		}
-		res.send(a);
+		res.render('adherents', {adherents: a});
 	});
 }
 
@@ -65,4 +65,22 @@ exports.delete = (req, res) =>	{
 		console.log('Supression adherent: ' + a.nom + ' ' + a.prenom);
 		res.send(a);
 	});
+}
+exports.listBetweenDates = (req, res) =>    {
+    let dateDebutStr = req.params.debut,
+        dateFinStr = req.params.fin;
+    let dateDebut = new Date(dateDebutStr),
+        dateFin = new Date(dateFinStr);
+
+    Adherent.find({"createdAt": {
+        "$gte": dateDebut,
+        "$lt": dateFin
+    }}).exec((err, a) =>    {
+        if (err) return res.status(500).send(err);
+        if (!a) {
+            err = new Error("Incomes: abonnement n'existe pas");
+            return res.status(404).send(err);
+        }
+        res.send(a);
+    });
 }

@@ -17,4 +17,4 @@ PlanAbonnement.static({
 
 })
 
-mongoose.model('planabonnements', PlanAbonnement)
+mongoose.model('planabonnement', PlanAbonnement)

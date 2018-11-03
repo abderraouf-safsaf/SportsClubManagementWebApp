@@ -65,3 +65,22 @@ Seance.findByIdAndRemove(id, (err, s) =>	{
     res.send(s);
 });
 }
+
+exports.listBetweenDates = (req, res) =>    {
+    let dateDebutStr = req.params.debut,
+        dateFinStr = req.params.fin;
+    let dateDebut = new Date(dateDebutStr),
+        dateFin = new Date(dateFinStr);
+
+    Seance.find({"createdAt": {
+        "$gte": dateDebut,
+        "$lt": dateFin
+    }}).exec((err, a) =>    {
+        if (err) return res.status(500).send(err);
+        if (!a) {
+            err = new Error("Incomes: abonnement n'existe pas");
+            return res.status(404).send(err);
+        }
+        res.send(a);
+    });
+}
